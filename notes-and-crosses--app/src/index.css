@@ -49,18 +49,141 @@ h1 {
 
 #game-container {
   max-width: 45rem;
-  margin: 1.5rem auto;
-  padding: 2rem;
   border-radius: 6px;
   background: linear-gradient(#383624, #282617);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
-@media (width >= 48rem) {
+#players {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#players li {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  border: 2px solid transparent;
+}
+
+#players.highlight-player li.active {
+  border-color: #f6e35a;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+#players.highlight-player li.active .player-name,
+#players.highlight-player li.active .player-symbol {
+  color: #f6e35a;
+}
+
+#players button {
+  width: 3rem;
+  border: none;
+  background: none;
+  color: #c3ba78;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+  text-align: center;
+}
+
+#players button:hover {
+  color: #f8ca31;
+}
+
+.player {
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.player-name {
+  display: inline-block;
+  width: 100%;
+  color: #e1dec7;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.player input {
+  font: inherit;
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  animation: pulse-text 2s infinite;
+  background-color: #46432f;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.player-symbol {
+  margin-left: 1rem;
+  color: #e1dec7;
+}
+
+.player-name input,
+.player-name,
+.player-symbol {
+  font-size: 0.8rem;
+}
+
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 48rem) {
+  body {
+    background-size: 100% 100%, 50% 50%, 100% 100%;
+    min-height: 100vh;
+  }
+
+  header img {
+    width: 6rem;
+    margin: 1rem auto;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    margin: 0 auto 1rem auto;
+  }
+
+  #game-container {
+    padding: 1rem;
+  }
+
+  #players li {
+    width: 100%;
+  }
+
+  .player-name,
+  .player-symbol,
+  #players button
+  #players input {
+    font-size: 0.8rem;
+  }
+
+}
+
+@media (min-width: 48rem) {
   header img {
     margin: 3rem auto 1rem auto;
-    
+  }
+
+  #game-container {
+    padding: 1rem;
+    margin: 3rem auto;
   }
 
   h1 {
@@ -68,8 +191,16 @@ h1 {
     margin: 0 auto 3rem auto;
   }
 
-  #game-container {
-    margin: 3rem auto;
-    
+  #players li {
+    justify-content: center;
+    gap: 1.4rem;
+}
+
+  .player-name input,
+  #players button,
+  .player-name,
+  .player-symbol {
+    font-size: 1.5rem;
+
   }
 }
