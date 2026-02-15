@@ -16,7 +16,7 @@ export default function Player({initialName, playerSymbol}) {
 
     let EditablePlayerName = <span className="player-name">{playerName}</span>
     if (isEditing) {
-        EditablePlayerName = <input type="text" onChange={handleNameChange} defaultValue={playerName} />;
+        EditablePlayerName = <input type="text" onChange={handleNameChange} value={playerName} />;
     }
     
     return (
