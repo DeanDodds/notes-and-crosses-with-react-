@@ -116,20 +116,26 @@ h1 {
 }
 
 .player input {
-  font: inherit;
   width: 100%;
   border: none;
   padding: 0.5rem;
   animation: pulse-text 2s infinite;
   background-color: #46432f;
-  text-align: center;
   text-transform: uppercase;
 }
 
-.player-symbol {
-  margin-left: 1rem;
-  color: #e1dec7;
+@keyframes pulse-text {
+  0% {
+    color: #e1dec7;
+  }
+  50% {
+    color: #9f9d83;
+  }
+  100% {
+    color: #e1dec7;
+  }
 }
+
 
 .player-name input,
 .player-name,
