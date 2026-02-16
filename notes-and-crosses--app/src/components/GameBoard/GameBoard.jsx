@@ -17,19 +17,6 @@ export default function GameBoard({ onPlayerChange, turns}) {
     gameBoard[row][col] = player;
 }
 
-//   function handleGameButtonClick(rowIndex, colIndex) {
-//     setGameBoard((prevGameBoard) => {
-//       const updatedBoard = prevGameBoard.map((innerArray) => [
-//         ...innerArray
-//       ]);
-
-//       updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
-
-//       return updatedBoard;
-//     });
-
-//     onPlayerChange();
-//   }
 
   return (
     <ol id="game-board">
@@ -39,7 +26,7 @@ export default function GameBoard({ onPlayerChange, turns}) {
             {row.map((playerSymbol, colIndex) => (
               <li className="game-button-container" key={colIndex}>
                 <button
-                  onClick={() => onPlayerChange(rowIndex, colIndex)}
+                  onClick={() => onPlayerChange(rowIndex, colIndex)} disabled={playerSymbol !== null}
                 >
                   {playerSymbol}
                 </button>

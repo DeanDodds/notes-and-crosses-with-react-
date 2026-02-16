@@ -3,6 +3,7 @@ import './App.css'
 import Header from './components/Header/Header'
 import Player from './components/Player/Player'
 import GameBoard from './components/GameBoard/GameBoard'
+import Logs from './components/Logs/Logs'
 
 function App() {
   const [gameState, setGameState] = useState([]);
@@ -34,6 +35,7 @@ function App() {
         
        <GameBoard onPlayerChange={handlePlayerChange} turns={gameTurns}/>
     </div>
+        <Logs turns={gameTurns} /> 
    </main>
    </>
   )
