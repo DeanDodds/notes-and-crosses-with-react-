@@ -5,6 +5,7 @@ import Player from './components/Player/Player'
 import GameBoard from './components/GameBoard/GameBoard'
 import Logs from './components/Logs/Logs'
 import { WINNING_COMBINATIONS } from './winning-combonations'
+import GameOver from './components/GameOver/GameOver'
 
 
 const initialGameBoard = [
@@ -12,8 +13,6 @@ const initialGameBoard = [
   [null, null, null],
   [null, null, null]
 ];
-
-
 
 function App() {
 
@@ -78,8 +77,8 @@ function App() {
         <Player initialName="Player 1" playerSymbol="X" isActive={activePlayer === 'X'}/>
         <Player initialName="Player 2" playerSymbol="O" isActive={activePlayer === 'O'}/>
        </ol>
-        {winner && <p>You Won {winner}</p>}
-        {isdraw && <p>It's a draw!</p>}
+        {winner && GameOver({ winner, isDraw: false })}
+        {isdraw && GameOver({ winner: null, isDraw: true })}
        <GameBoard onPlayerChange={handlePlayerChange} board={gameBoard}/>
         </div>
         <Logs turns={gameTurns} /> 
