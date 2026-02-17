@@ -64,6 +64,8 @@ function App() {
         winner = firstPlayerSymbol;
       }
     }
+
+    const isdraw = gameTurns.length === 9 && !winner;
   
 
   return (
@@ -77,6 +79,7 @@ function App() {
         <Player initialName="Player 2" playerSymbol="O" isActive={activePlayer === 'O'}/>
        </ol>
         {winner && <p>You Won {winner}</p>}
+        {isdraw && <p>It's a draw!</p>}
        <GameBoard onPlayerChange={handlePlayerChange} board={gameBoard}/>
         </div>
         <Logs turns={gameTurns} /> 
