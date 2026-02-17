@@ -4,7 +4,7 @@ import Header from './components/Header/Header'
 import Player from './components/Player/Player'
 import GameBoard from './components/GameBoard/GameBoard'
 import Logs from './components/Logs/Logs'
-import { WINNING_COMBINATIONS } from './winning-combonations'
+import { WINNING_COMBINATIONS } from './winning-combinations'
 import GameOver from './components/GameOver/GameOver'
 
 
@@ -36,11 +36,15 @@ function App() {
     });
   }
 
+  function onGameRestart() {
+    setGameTurns([]);
+  }
+
   const [gameTurns, setGameTurns] = useState([]);
 
   const activePlayer = getActivePlayer(gameTurns);
   
-  let gameBoard = initialGameBoard;
+  let gameBoard = [...initialGameBoard.map(row => [...row])];
 
   for (const turn of gameTurns) {
     const {square, player } = turn;
@@ -64,7 +68,7 @@ function App() {
       }
     }
 
-    const isdraw = gameTurns.length === 9 && !winner;
+    const isDraw = gameTurns.length === 9 && !winner;
   
 
   return (
@@ -77,8 +81,13 @@ function App() {
         <Player initialName="Player 1" playerSymbol="X" isActive={activePlayer === 'X'}/>
         <Player initialName="Player 2" playerSymbol="O" isActive={activePlayer === 'O'}/>
        </ol>
-        {winner && GameOver({ winner, isDraw: false })}
-        {isdraw && GameOver({ winner: null, isDraw: true })}
+       {(winner || isDraw) && (
+        <GameOver
+          winner={winner}
+          isDraw={isDraw}
+          onGameRestart={onGameRestart}
+        />
+      )}
        <GameBoard onPlayerChange={handlePlayerChange} board={gameBoard}/>
         </div>
         <Logs turns={gameTurns} /> 
