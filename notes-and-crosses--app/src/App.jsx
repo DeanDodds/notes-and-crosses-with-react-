@@ -24,6 +24,15 @@ function App() {
       return currentPlayer;
   }
 
+  function handlePlayerNameChange(playerSymbol, newName) {
+    setPlayer((previousPlayers) => {
+      return {
+        ...previousPlayers,
+        [playerSymbol]: newName
+      };
+    });
+  }
+
   function handlePlayerChange(rowIndex, colIndex) {
     setGameTurns((gameTurns) => {
       const currentPlayer = getActivePlayer(gameTurns);
@@ -36,39 +45,53 @@ function App() {
     });
   }
 
-  function onGameRestart() {
-    setGameTurns([]);
-  }
-
-  const [gameTurns, setGameTurns] = useState([]);
-
-  const activePlayer = getActivePlayer(gameTurns);
-  
-  let gameBoard = [...initialGameBoard.map(row => [...row])];
-
-  for (const turn of gameTurns) {
-    const {square, player } = turn;
-    const {row, col} = square;
-
-    gameBoard[row][col] = player;
-}
-
+  function checkForWinner(gameBoard, players) {
     let winner = null;
+
+
 
     for (const combination of WINNING_COMBINATIONS) {
       const firstPlayerSymbol = gameBoard[combination[0].row][combination[0].column];
       const secondPlayerSymbol = gameBoard[combination[1].row][combination[1].column];
       const thirdPlayerSymbol = gameBoard[combination[2].row][combination[2].column];
+      console.log(firstPlayerSymbol, secondPlayerSymbol, thirdPlayerSymbol);
 
       if (firstPlayerSymbol && 
         firstPlayerSymbol === secondPlayerSymbol && 
         firstPlayerSymbol === thirdPlayerSymbol
       ) {
-        winner = firstPlayerSymbol;
+
+        winner = players[firstPlayerSymbol];
+        return winner;
       }
     }
+      return null;
+  }
 
-    const isDraw = gameTurns.length === 9 && !winner;
+  function makeGameBoard(gameTurns) {
+    let gameBoard = [...initialGameBoard.map(row => [...row])];
+
+    for (const turn of gameTurns) {
+      const {square, player } = turn;
+      const {row, col} = square;
+
+      gameBoard[row][col] = player;
+    }
+    return gameBoard;
+  }
+
+  function onGameRestart() {
+    setGameTurns([]);
+  }
+
+  
+
+  const [gameTurns, setGameTurns] = useState([]);
+  const [players, setPlayer] = useState({ X: 'Player 1' , O: "Player 2" },);
+  const activePlayer = getActivePlayer(gameTurns);
+  const gameBoard = makeGameBoard(gameTurns);  
+  const winner = checkForWinner(gameBoard, players);
+  const isDraw = gameTurns.length === 9 && !winner;
   
 
   return (
@@ -78,8 +101,12 @@ function App() {
     <main>
       <div id="game-container">
        <ol id="players" className='highlight-player'>
-        <Player initialName="Player 1" playerSymbol="X" isActive={activePlayer === 'X'}/>
-        <Player initialName="Player 2" playerSymbol="O" isActive={activePlayer === 'O'}/>
+        <Player initialName="Player 1" 
+        playerSymbol="X" 
+        isActive={activePlayer === 'X'}
+        onChangeName={handlePlayerNameChange}
+        />
+        <Player initialName="Player 2" playerSymbol="O" isActive={activePlayer === 'O'} onChangeName={handlePlayerNameChange}/>
        </ol>
        {(winner || isDraw) && (
         <GameOver
